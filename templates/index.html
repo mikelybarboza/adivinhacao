@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Adivinhação</title>
+</head>
+<body style="text-align: center;">
+    <h1>Bem-vindo ao Jogo de Adivinhação!</h1>
+
+    <form method="POST">
+        <label for="palpite">Digite seu palpite (1 a 100):</label>
+        <input type="number" id="palpite" name="palpite" required>
+        <br><br>
+        <input type="hidden" name="numero_secreto" value="{{ numero_secreto }}">
+        <input type="hidden" name="tentativas" value="{{ tentativas + 1 }}">
+        <input type="hidden" name="tentativas_anteriores" value="{{ tentativas_anteriores }}">
+        <button type="submit">Enviar Palpite</button>
+    </form>
+
+    <p>{{ dica }}</p>
+
+    {% if tentativas_anteriores %}
+        <h3>Tentativas anteriores:</h3>
+        <p>{{ tentativas_anteriores.split(',') | join(', ') }}</p>
+    {% endif %}
+
+    {% if dica.startswith("Parabéns") %}
+        <button onclick="window.location.reload()">Jogar Novamente</button>
+    {% endif %}
+
+    <p>Você já tentou: {{ tentativas }} vezes.</p>
+</body>
+</html>
